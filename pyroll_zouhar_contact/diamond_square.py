@@ -1,28 +1,14 @@
 import sys
 
 from pyroll import RollPass, grooves
-
-
-def suits(roll_pass: RollPass):
-    return (
-            (
-                    isinstance(roll_pass.in_profile.groove, grooves.DiamondGroove)
-                    and
-                    isinstance(roll_pass.groove, grooves.SquareGroove)
-            )
-            or
-            (
-                    isinstance(roll_pass.in_profile.groove, grooves.SquareGroove)
-                    and
-                    isinstance(roll_pass.groove, grooves.DiamondGroove)
-            )
-    )
+from pyroll.utils.hookutils import applies_to_in_grooves, applies_to_out_grooves
 
 
 @RollPass.hookimpl
+@applies_to_in_grooves(grooves.DiamondGroove, grooves.SquareGroove)
+@applies_to_out_grooves(grooves.SquareGroove, grooves.DiamondGroove)
 def zouhar_contact_c2(roll_pass: RollPass):
-    if suits(roll_pass):
-        return 0.28
+    return 0.28
 
 
 RollPass.plugin_manager.register(sys.modules[__name__])
