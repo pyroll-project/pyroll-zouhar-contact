@@ -23,7 +23,7 @@ def zouhar_contact_c3(roll_pass: RollPass):
 
 @RollPass.hookimpl
 def zouhar_contact_in_width(roll_pass: RollPass):
-    return roll_pass.in_profile.gap
+    return roll_pass.in_profile.rotated.width
 
 
 @RollPass.hookimpl
@@ -34,6 +34,8 @@ def contact_area(roll_pass: RollPass):
             roll_pass.zouhar_contact_c2 is not None
             and
             roll_pass.zouhar_contact_c3 is not None
+            and
+            roll_pass.zouhar_contact_in_width is not None
     ):
         _log.debug(f"Used Zouhar contact model for roll pass {roll_pass.label}.")
         return (
