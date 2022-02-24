@@ -40,7 +40,7 @@ def contact_area(roll_pass: RollPass):
                        roll_pass.out_profile.width * roll_pass.zouhar_contact_c2
                        + 0.5 * (
                                roll_pass.out_profile.width
-                               + roll_pass.in_profile.rotated.width * roll_pass.zouhar_contact_c1
+                               + roll_pass.zouhar_contact_in_width * roll_pass.zouhar_contact_c1
                        )
                        * (1 - roll_pass.zouhar_contact_c2)
                ) * roll_pass.zouhar_contact_c3 * roll_pass.contact_length
