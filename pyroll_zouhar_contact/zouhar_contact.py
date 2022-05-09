@@ -1,6 +1,6 @@
-import sys
+from shapely.geometry import LineString
 
-from pyroll import RollPass
+from pyroll import RollPass, Profile
 from logging import getLogger
 
 _log = getLogger(__name__)
@@ -23,10 +23,10 @@ def zouhar_contact_c3(roll_pass: RollPass):
 
 @RollPass.hookimpl
 def zouhar_contact_in_width(roll_pass: RollPass):
-    return roll_pass.in_profile.rotated.width
+    return roll_pass.in_profile.width
 
 
-@RollPass.hookimpl
+@RollPass.Roll.hookimpl
 def contact_area(roll_pass: RollPass):
     if (
             roll_pass.zouhar_contact_c1 is not None
@@ -45,7 +45,4 @@ def contact_area(roll_pass: RollPass):
                                + roll_pass.zouhar_contact_in_width * roll_pass.zouhar_contact_c1
                        )
                        * (1 - roll_pass.zouhar_contact_c2)
-               ) * roll_pass.zouhar_contact_c3 * roll_pass.contact_length
-
-
-RollPass.plugin_manager.register(sys.modules[__name__])
+               ) * roll_pass.zouhar_contact_c3 * roll_pass.roll.contact_length

@@ -1,21 +1,16 @@
-import sys
-
-from pyroll import RollPass, grooves
-from pyroll.utils.hookutils import applies_to_in_grooves, applies_to_out_grooves
+from pyroll import RollPass
+from pyroll import for_in_profile_types, for_out_profile_types
 
 
 @RollPass.hookimpl
-@applies_to_in_grooves(grooves.OvalGrooveBase)
-@applies_to_out_grooves(grooves.SquareGroove)
+@for_in_profile_types("oval")
+@for_out_profile_types("square")
 def zouhar_contact_c2(roll_pass: RollPass):
     return 0.1
 
 
 @RollPass.hookimpl
-@applies_to_in_grooves(grooves.OvalGrooveBase)
-@applies_to_out_grooves(grooves.SquareGroove)
+@for_in_profile_types("oval")
+@for_out_profile_types("square")
 def zouhar_contact_in_width(roll_pass: RollPass):
-    return roll_pass.in_profile.gap
-
-
-RollPass.plugin_manager.register(sys.modules[__name__])
+    return roll_pass.in_profile.local_width(roll_pass.in_profile.height / 2)

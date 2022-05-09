@@ -1,5 +1,3 @@
-import sys
-
 from pyroll import RollPass
 
 
@@ -29,6 +27,3 @@ def zouhar_contact_in_width(roll_pass):
     """Get the value of the incoming profile width for the given roll pass.
     Return None if the implementation cannot serve this.
     The first not None result is taken."""
-
-
-RollPass.plugin_manager.add_hookspecs(sys.modules[__name__])
