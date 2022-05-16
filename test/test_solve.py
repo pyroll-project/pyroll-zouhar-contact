@@ -1,20 +1,20 @@
 import logging
 from pathlib import Path
 
-import pyroll
+from pyroll.core import solve
+from pyroll.ui import Reporter
 
 
 def test_solve(tmp_path: Path, caplog):
-    caplog.set_level(logging.ERROR, "matplotlib")
-    caplog.set_level(logging.DEBUG)
+    caplog.set_level(logging.DEBUG, "pyroll")
 
-    import pyroll_zouhar_contact
+    from pyroll import zouhar_contact
 
     from pyroll.ui.cli.res import input_trio
 
-    pyroll.solve(input_trio.sequence, input_trio.in_profile)
+    solve(input_trio.sequence, input_trio.in_profile)
 
-    report = pyroll.Reporter().render(input_trio.sequence)
+    report = Reporter().render(input_trio.sequence)
 
     report_file = tmp_path / "report.html"
     report_file.write_text(report)

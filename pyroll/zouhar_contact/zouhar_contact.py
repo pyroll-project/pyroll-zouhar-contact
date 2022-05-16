@@ -1,6 +1,4 @@
-from shapely.geometry import LineString
-
-from pyroll import RollPass, Profile
+from pyroll.core import RollPass
 from logging import getLogger
 
 _log = getLogger(__name__)

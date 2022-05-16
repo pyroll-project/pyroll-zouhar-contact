@@ -1,5 +1,5 @@
-from pyroll import RollPass
-from pyroll import for_in_profile_types, for_out_profile_types
+from pyroll.core import RollPass
+from pyroll.utils import for_in_profile_types, for_out_profile_types
 
 
 @RollPass.hookimpl
