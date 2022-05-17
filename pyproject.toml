@@ -11,7 +11,7 @@ homepage = "https://pyroll-project.github.io/"
 repository = "https://github.com/pyroll-project/pyroll-zouhar-contact"
 documentation = "https://github.com/pyroll-project/pyroll-zouhar-contact/blob/main/docs/docs.pdf"
 packages = [
-    { include = "zouhar_contact", from = "pyroll" }
+    { include = "pyroll/zouhar_contact" }
 ]
 
 [tool.poetry.dependencies]
