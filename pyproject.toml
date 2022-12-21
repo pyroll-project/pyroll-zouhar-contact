@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pyroll-zouhar-contact"
-version = "1.0.1"
+version = "2.0.0a1"
 description = "Plugin for PyRoll providing the contact area estimation by Zouhar"
 authors = [
     "Max Weiner <max.weiner@imf.tu-freiberg.de>",
@@ -22,8 +22,8 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = ">=3.9,<3.11"
-pyroll = "^1.0.5.post1"
+python = ">=3.9,<4.0"
+pyroll-core = "^2.0.0a"
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.1.2"
