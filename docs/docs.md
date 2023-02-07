@@ -1,7 +1,7 @@
 ---
 title: The PyRoll Zouhar Contact Model Plugin  
 author: [Max Weiner, Christoph Renzing]  
-date: 2022-05-16
+date: 2023-02-07
 ---
 
 ## The Zouhar approach to contact areas
