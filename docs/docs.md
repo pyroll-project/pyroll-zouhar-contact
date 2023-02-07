@@ -32,7 +32,7 @@ Zouhar gave the following coefficients:
 
 ## Usage of the Plugin
 
-Load the plugin with the module name `pyroll_zouhar_contact`.
+Load the plugin with the module name `pyroll.zouhar_contact`.
 
 ### Coefficient Hooks
 
@@ -47,7 +47,7 @@ For the pass types listed above, implementation are provided, which check for th
 The plugin specifies a `zouhar_contact_in_width` hook on `RollPass`, to deliver the width of the initial contact $b$.
 For the pass types listed above, implementation are provided, which check for the type of the in and out profiles.
 
-### Contact Area hook
+### Contact Area Hook
 
 The plugin provides an implementation of the `RollPass.Roll.contact_area` hook, which calculates the contact area
 according to the model function. It asks the roll pass for coefficients and initial width. If one of these is not
