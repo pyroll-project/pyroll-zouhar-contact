@@ -1,6 +1,8 @@
 from pyroll.core import RollPass, Hook
 from logging import getLogger
 
+VERSION = "2.0.0b"
+
 RollPass.zouhar_contact_c1 = Hook[float]()
 """Get the value of the Zouhar C1 constant for the given roll pass."""
 
@@ -36,25 +38,25 @@ def default_in_width(self: RollPass):
 
 @RollPass.Roll.contact_area
 def contact_area(self: RollPass.Roll):
-    roll_pass = self.roll_pass()
+    rp = self.roll_pass
     if (
-            roll_pass.zouhar_contact_c1 is not None
+            rp.zouhar_contact_c1 is not None
             and
-            roll_pass.zouhar_contact_c2 is not None
+            rp.zouhar_contact_c2 is not None
             and
-            roll_pass.zouhar_contact_c3 is not None
+            rp.zouhar_contact_c3 is not None
             and
-            roll_pass.zouhar_contact_in_width is not None
+            rp.zouhar_contact_in_width is not None
     ):
-        roll_pass.log.debug(f"Used Zouhar contact model for roll pass {roll_pass.label}.")
+        rp.logger.debug(f"Used Zouhar contact model for roll pass {rp.label}.")
         return (
-                roll_pass.out_profile.width * roll_pass.zouhar_contact_c2
+                rp.out_profile.width * rp.zouhar_contact_c2
                 + 0.5 * (
-                        roll_pass.out_profile.width
-                        + roll_pass.zouhar_contact_in_width * roll_pass.zouhar_contact_c1
+                        rp.out_profile.width
+                        + rp.zouhar_contact_in_width * rp.zouhar_contact_c1
                 )
-                * (1 - roll_pass.zouhar_contact_c2)
-        ) * roll_pass.zouhar_contact_c3 * roll_pass.roll.contact_length
+                * (1 - rp.zouhar_contact_c2)
+        ) * rp.zouhar_contact_c3 * rp.roll.contact_length
 
 
 @RollPass.zouhar_contact_c2
