@@ -12,11 +12,6 @@ dependencies = [
 
 dynamic = ["version"]
 
-[project.optional-dependencies]
-pillar-model = [
-    "pyroll-pillar-model ~= 2.0b",
-]
-
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
