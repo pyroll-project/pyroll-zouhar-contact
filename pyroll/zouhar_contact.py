@@ -1,3 +1,6 @@
+import sys
+
+import numpy as np
 from pyroll.core import RollPass, Hook
 
 VERSION = "2.0"
@@ -49,13 +52,13 @@ def contact_area(self: RollPass.Roll):
     ):
         rp.logger.debug(f"Used Zouhar contact model for roll pass {rp.label}.")
         return (
-                rp.out_profile.width * rp.zouhar_contact_c2
-                + 0.5 * (
-                        rp.out_profile.width
-                        + rp.zouhar_contact_in_width * rp.zouhar_contact_c1
-                )
-                * (1 - rp.zouhar_contact_c2)
-        ) * rp.zouhar_contact_c3 * rp.roll.contact_length
+                       rp.out_profile.width * rp.zouhar_contact_c2
+                       + 0.5 * (
+                               rp.out_profile.width
+                               + rp.zouhar_contact_in_width * rp.zouhar_contact_c1
+                       )
+                       * (1 - rp.zouhar_contact_c2)
+               ) * rp.zouhar_contact_c3 * rp.roll.contact_length
 
 
 @RollPass.zouhar_contact_c2
@@ -116,3 +119,18 @@ def square_oval_c2(self: RollPass):
 def square_oval_c3(self: RollPass):
     if "square" in self.in_profile.classifiers and "oval" in self.classifiers:
         return 1.02
+
+
+try:
+    from pyroll.report import hookimpl, plugin_manager
+
+
+    @hookimpl(specname="property_format")
+    def ratio_format(name: str, value: object):
+        if name.startswith("zouhar_contact_c"):
+            return np.format_float_positional(value, precision=2)
+
+    plugin_manager.register(sys.modules[__name__])
+
+except ImportError:
+    pass
