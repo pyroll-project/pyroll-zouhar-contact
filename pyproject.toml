@@ -6,7 +6,7 @@ authors = [
     { name = "Christoph Renzing", email="christoph.renzing@imf.tu-freiberg.de"}
 ]
 license = "BSD-3-Clause"
-requires-python = ">=3.9, <4.0"
+requires-python = ">=3.9"
 dependencies = [
     "pyroll-core ~= 2.0",
 ]
@@ -21,7 +21,7 @@ classifiers = [
 dynamic = ["version"]
 
 [project.urls]
-Homepage = "https://pyroll-project.github.io"
+Homepage = "https://pyroll.readthedocs.io"
 Repository = "https://github.com/pyroll-project/pyroll-zouhar-contact"
 Documentation = "https://github.com/pyroll-project/pyroll-zouhar-contact/blob/main/docs/docs.pdf"
 
