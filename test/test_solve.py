@@ -62,9 +62,11 @@ def test_solve_min(tmp_path: Path, caplog):
 
     try:
         from pyroll.report import report
+
         report = report(sequence)
         f = tmp_path / "report.html"
         f.write_text(report)
         webbrowser.open(f.as_uri())
+
     except ImportError:
         pass
