@@ -1,7 +1,11 @@
-# PyRoll Zouhar Contact Model
+# PyRolL Zouhar Contact Model
 
-Plugin for PyRoll providing the contact area estimation by Zouhar.
+Plugin for PyRolL providing the contact area estimation by Zouhar.
 
-To read about the model approach, see [here](docs/model.md).
+For the docs, see [here](docs/index.md).
 
-To read about the usage of the plugin, see [here](docs/usage.md).
+This project is licensed under the [BSD-3-Clause license](LICENSE).
+
+The package is available via PyPi and can be installed with
+
+    pip install pyroll-zouhar-contact
