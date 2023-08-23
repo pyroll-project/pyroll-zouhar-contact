@@ -3,7 +3,7 @@ import sys
 import numpy as np
 from pyroll.core import RollPass, Hook
 
-VERSION = "2.0"
+VERSION = "2.0.1"
 
 RollPass.zouhar_contact_c1 = Hook[float]()
 """Get the value of the Zouhar C1 constant for the given roll pass."""
