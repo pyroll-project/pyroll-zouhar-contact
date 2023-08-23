@@ -3,7 +3,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 from pyroll.core import RollPass, Hook, Unit
-from pyroll.report import hookimpl
 from shapely.geometry import LineString, Polygon
 
 VERSION = "2.1"
@@ -124,35 +123,6 @@ def square_oval_c3(self: RollPass):
         return 1.02
 
 
-@hookimpl(specname="unit_plot")
-def roll_pass_contact_area_(unit: Unit):
-    if isinstance(unit, RollPass):
-        rp: RollPass = unit
-
-        coords = (
-            (-rp.out_profile.width / 2, 0),
-            (-rp.out_profile.width / 2, rp.roll.contact_length * rp.zouhar_contact_c2),
-            (-rp.zouhar_contact_in_width * rp.zouhar_contact_c1 / 2, rp.roll.contact_length),
-            (rp.zouhar_contact_in_width * rp.zouhar_contact_c1 / 2, rp.roll.contact_length),
-            (rp.out_profile.width / 2, rp.roll.contact_length * rp.zouhar_contact_c2),
-            (rp.out_profile.width / 2, 0),
-            (-rp.out_profile.width / 2, 0)
-        )
-
-        area_as_poly = Polygon(coords)
-
-        fig: plt.Figure = plt.figure()
-        ax: plt.Axes = fig.add_subplot()
-        ax.set_aspect("equal")
-        ax.grid(True)
-        ax.set_title("Contact Area according to Zouhar's model")
-        ax.set_xlabel("$z$")
-        ax.set_ylabel("$x$")
-        ax.fill(*area_as_poly.exterior.xy)
-
-        return fig
-
-
 try:
     from pyroll.report import hookimpl, plugin_manager
 
@@ -161,6 +131,35 @@ try:
     def ratio_format(name: str, value: object):
         if name.startswith("zouhar_contact_c"):
             return np.format_float_positional(value, precision=2)
+
+
+    @hookimpl(specname="unit_plot")
+    def roll_pass_contact_area_(unit: Unit):
+        if isinstance(unit, RollPass):
+            rp: RollPass = unit
+
+            coords = (
+                (-rp.out_profile.width / 2, 0),
+                (-rp.out_profile.width / 2, rp.roll.contact_length * rp.zouhar_contact_c2),
+                (-rp.zouhar_contact_in_width * rp.zouhar_contact_c1 / 2, rp.roll.contact_length),
+                (rp.zouhar_contact_in_width * rp.zouhar_contact_c1 / 2, rp.roll.contact_length),
+                (rp.out_profile.width / 2, rp.roll.contact_length * rp.zouhar_contact_c2),
+                (rp.out_profile.width / 2, 0),
+                (-rp.out_profile.width / 2, 0)
+            )
+
+            area_as_poly = Polygon(coords)
+
+            fig: plt.Figure = plt.figure()
+            ax: plt.Axes = fig.add_subplot()
+            ax.set_aspect("equal")
+            ax.grid(True)
+            ax.set_title("Contact Area according to Zouhar's model")
+            ax.set_xlabel("$z$")
+            ax.set_ylabel("$x$")
+            ax.fill(*area_as_poly.exterior.xy, alpha=0.5)
+
+            return fig
 
 
     plugin_manager.register(sys.modules[__name__])
