@@ -40,6 +40,24 @@ def default_in_width(self: RollPass):
     return self.in_profile.width
 
 
+@RollPass.zouhar_contact_in_width
+def diamonds_in_width(self: RollPass):
+    if "diamond" in self.in_profile.classifiers and "diamond" in self.classifiers:
+        return self.in_profile.local_width(self.in_profile.height / 2)
+
+
+@RollPass.zouhar_contact_in_width
+def oval_square_in_width(self: RollPass):
+    if "oval" in self.in_profile.classifiers and "square" in self.classifiers:
+        return self.in_profile.local_width(self.in_profile.height / 2)
+
+
+@RollPass.zouhar_contact_in_width
+def oval_square_in_width(self: RollPass):
+    if "oval" in self.in_profile.classifiers and "round" in self.classifiers:
+        return self.in_profile.local_width(self.in_profile.height / 2)
+
+
 @RollPass.Roll.contact_area
 def contact_area(self: RollPass.Roll):
     rp = self.roll_pass
@@ -75,22 +93,10 @@ def diamond_square_c2(self: RollPass):
         return 0.28
 
 
-@RollPass.zouhar_contact_in_width
-def diamond_square_in_width(self: RollPass):
-    if "diamond" in self.in_profile.classifiers and "square" in self.classifiers:
-        return self.in_profile.local_width(self.in_profile.height / 2)
-
-
 @RollPass.zouhar_contact_c2
 def oval_square_c2(self: RollPass):
     if "oval" in self.in_profile.classifiers and "square" in self.classifiers:
         return 0.1
-
-
-@RollPass.zouhar_contact_in_width
-def oval_square_in_width(self: RollPass):
-    if "oval" in self.in_profile.classifiers and "square" in self.classifiers:
-        return self.in_profile.local_width(self.in_profile.height / 2)
 
 
 @RollPass.zouhar_contact_c1
