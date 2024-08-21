@@ -2,7 +2,7 @@ import sys
 import numpy as np
 import matplotlib.pyplot as plt
 
-from pyroll.core import RollPass, Hook, Unit
+from pyroll.core import RollPass, Hook, Unit, ThreeRollPass
 from shapely.geometry import LineString, Polygon
 
 VERSION = "2.1"
@@ -58,6 +58,11 @@ def oval_square_in_width(self: RollPass):
         return self.in_profile.local_width(self.in_profile.height / 2)
 
 
+@ThreeRollPass.zouhar_contact_in_width
+def default_in_width3(self: RollPass):
+    return self.in_profile.local_width(-self.in_profile.height / 2 * 0.999)
+
+
 @RollPass.Roll.contact_area
 def contact_area(self: RollPass.Roll):
     rp = self.roll_pass
@@ -70,11 +75,16 @@ def contact_area(self: RollPass.Roll):
             and
             rp.zouhar_contact_in_width is not None
     ):
+        if "3fold" in rp.classifiers:
+            out_width = rp.out_profile.contact_lines[1].width
+        else:
+            out_width = rp.out_profile.width
+
         rp.logger.debug(f"Used Zouhar contact model for roll pass {rp.label}.")
         return (
-                rp.out_profile.width * rp.zouhar_contact_c2
+                out_width * rp.zouhar_contact_c2
                 + 0.5 * (
-                        rp.out_profile.width
+                        out_width
                         + rp.zouhar_contact_in_width * rp.zouhar_contact_c1
                 )
                 * (1 - rp.zouhar_contact_c2)
@@ -144,14 +154,19 @@ try:
         if isinstance(unit, RollPass):
             rp: RollPass = unit
 
+            if "3fold" in rp.classifiers:
+                out_width = rp.out_profile.contact_lines[1].width
+            else:
+                out_width = rp.out_profile.width
+
             coords = (
-                (-rp.out_profile.width / 2, 0),
-                (-rp.out_profile.width / 2, rp.roll.contact_length * rp.zouhar_contact_c2),
+                (-out_width / 2, 0),
+                (-out_width / 2, rp.roll.contact_length * rp.zouhar_contact_c2),
                 (-rp.zouhar_contact_in_width * rp.zouhar_contact_c1 / 2, rp.roll.contact_length),
                 (rp.zouhar_contact_in_width * rp.zouhar_contact_c1 / 2, rp.roll.contact_length),
-                (rp.out_profile.width / 2, rp.roll.contact_length * rp.zouhar_contact_c2),
-                (rp.out_profile.width / 2, 0),
-                (-rp.out_profile.width / 2, 0)
+                (out_width / 2, rp.roll.contact_length * rp.zouhar_contact_c2),
+                (out_width / 2, 0),
+                (-out_width / 2, 0)
             )
 
             area_as_poly = Polygon(coords)
