@@ -65,50 +65,12 @@ def default_in_width3(self: RollPass):
 
 @RollPass.Roll.contact_area
 def contact_area(self: RollPass.Roll):
-    rp = self.roll_pass
-    if (
-            rp.zouhar_contact_c1 is not None
-            and
-            rp.zouhar_contact_c2 is not None
-            and
-            rp.zouhar_contact_c3 is not None
-            and
-            rp.zouhar_contact_in_width is not None
-    ):
-        rp.logger.debug(f"Used Zouhar contact model for roll pass {rp.label}.")
-        return (
-            rp.out_profile.width * rp.zouhar_contact_c2
-            + 0.5 * (
-                    rp.out_profile.width
-                    + rp.zouhar_contact_in_width * rp.zouhar_contact_c1
-            )
-            * (1 - rp.zouhar_contact_c2)
-        ) * rp.zouhar_contact_c3 * rp.roll.contact_length
+    return roll_contact_area(self.roll_pass, self.roll_pass.out_profile.width)
 
 
 @ThreeRollPass.Roll.contact_area
 def contact_area3(self: RollPass.Roll):
-    rp = self.roll_pass
-    if (
-        rp.zouhar_contact_c1 is not None
-        and
-        rp.zouhar_contact_c2 is not None
-        and
-        rp.zouhar_contact_c3 is not None
-        and
-        rp.zouhar_contact_in_width is not None
-    ):
-        out_width = rp.out_profile.contact_lines[1].width
-
-        rp.logger.debug(f"Used Zouhar contact model for roll pass {rp.label}")
-        return (
-            out_width * rp.zouhar_contact_c2
-            + 0.5 * (
-                    out_width
-                    + rp.zouhar_contact_in_width * rp.zouhar_contact_c1
-            )
-            * (1 - rp.zouhar_contact_c2)
-        ) * rp.zouhar_contact_c3 * rp.roll.contact_length
+    return roll_contact_area(self.roll_pass, self.roll_pass.out_profile.contact_lines[1].width)
 
 
 @RollPass.zouhar_contact_c2
@@ -207,3 +169,24 @@ try:
 
 except ImportError:
     pass
+
+
+def roll_contact_area(rp, out_width):
+    if (
+            rp.zouhar_contact_c1 is not None
+            and
+            rp.zouhar_contact_c2 is not None
+            and
+            rp.zouhar_contact_c3 is not None
+            and
+            rp.zouhar_contact_in_width is not None
+    ):
+        rp.logger.debug(f"Used Zouhar contact model for roll pass {rp.label}")
+        return (
+                out_width * rp.zouhar_contact_c2
+                + 0.5 * (
+                        out_width
+                        + rp.zouhar_contact_in_width * rp.zouhar_contact_c1
+                )
+                * (1 - rp.zouhar_contact_c2)
+        ) * rp.zouhar_contact_c3 * rp.roll.contact_length
