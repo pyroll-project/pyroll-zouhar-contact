@@ -60,7 +60,7 @@ def oval_square_in_width(self: RollPass):
 
 @ThreeRollPass.zouhar_contact_in_width
 def default_in_width3(self: RollPass):
-    return self.in_profile.local_width(-self.in_profile.height / 2 * 0.999)
+    return self.in_profile.local_width(-self.in_profile.height / 2)
 
 
 @RollPass.Roll.contact_area
