@@ -2,40 +2,40 @@ import sys
 import numpy as np
 import matplotlib.pyplot as plt
 
-from pyroll.core import RollPass, Hook, Unit, ThreeRollPass
+from pyroll.core import BaseRollPass, RollPass, ThreeRollPass, Hook, Unit
 from shapely.geometry import LineString, Polygon
 
 VERSION = "2.1"
 
-RollPass.zouhar_contact_c1 = Hook[float]()
+BaseRollPass.zouhar_contact_c1 = Hook[float]()
 """Get the value of the Zouhar C1 constant for the given roll pass."""
 
-RollPass.zouhar_contact_c2 = Hook[float]()
+BaseRollPass.zouhar_contact_c2 = Hook[float]()
 """Get the value of the Zouhar C2 constant for the given roll pass."""
 
-RollPass.zouhar_contact_c3 = Hook[float]()
+BaseRollPass.zouhar_contact_c3 = Hook[float]()
 """Get the value of the Zouhar C3 constant for the given roll pass."""
 
-RollPass.zouhar_contact_in_width = Hook[float]()
+BaseRollPass.zouhar_contact_in_width = Hook[float]()
 """Get the value of the incoming profile width for the given roll pass."""
 
 
-@RollPass.zouhar_contact_c1
+@BaseRollPass.zouhar_contact_c1
 def default_c1(self: RollPass):
     return 1
 
 
-@RollPass.zouhar_contact_c2
+@BaseRollPass.zouhar_contact_c2
 def default_c2(self: RollPass):
     return 0
 
 
-@RollPass.zouhar_contact_c3
+@BaseRollPass.zouhar_contact_c3
 def default_c3(self: RollPass):
     return 1
 
 
-@RollPass.zouhar_contact_in_width
+@BaseRollPass.zouhar_contact_in_width
 def default_in_width(self: RollPass):
     return self.in_profile.width
 
@@ -133,8 +133,8 @@ try:
 
     @hookimpl(specname="unit_plot")
     def roll_pass_contact_area_(unit: Unit):
-        if isinstance(unit, RollPass):
-            rp: RollPass = unit
+        if isinstance(unit, BaseRollPass):
+            rp: BaseRollPass = unit
 
             if "3fold" in rp.classifiers:
                 out_width = rp.out_profile.contact_lines[1].width

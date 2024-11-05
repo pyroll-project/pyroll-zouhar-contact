@@ -13,8 +13,7 @@ path = ".venv"
 dependencies = [
     "pytest ~= 7.0",
     "pyroll-report ~= 2.0",
-    "plotly",
-    "kaleido == 0.1.0.post1",
+    "plotly"
 ]
 
 [envs.docs]
