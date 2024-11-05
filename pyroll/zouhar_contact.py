@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from pyroll.core import BaseRollPass, RollPass, ThreeRollPass, Hook, Unit
 from shapely.geometry import LineString, Polygon
 
-VERSION = "2.1"
+VERSION = "2.1.1"
 
 BaseRollPass.zouhar_contact_c1 = Hook[float]()
 """Get the value of the Zouhar C1 constant for the given roll pass."""
