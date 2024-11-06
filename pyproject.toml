@@ -9,7 +9,7 @@ authors = [
 license = "BSD-3-Clause"
 requires-python = ">=3.9"
 dependencies = [
-    "pyroll-core ~= 2.1",
+    "pyroll-core ~= 3.0",
 ]
 readme = "README.md"
 classifiers = [
