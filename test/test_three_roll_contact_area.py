@@ -109,7 +109,7 @@ def test_plot_contact_areas(g_one, g_two, ip, main_fig, subplot_index):
 
 
 def contact_area(rp):
-    out_width = rp.out_profile.contact_lines[1].width
+    out_width = rp.out_profile.contact_lines.geoms[1].width
 
     coords = (
         (-out_width / 2, - rp.roll.contact_length / 2),

@@ -80,7 +80,7 @@ def test_plotted_contact_area_3fold():
     ps.solve(p)
     rp = ps[0]
 
-    out_width = rp.out_profile.contact_lines[1].width
+    out_width = rp.out_profile.contact_lines.geoms[1].width
 
     coords = (
         (-out_width / 2, 0),

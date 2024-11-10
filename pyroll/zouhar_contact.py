@@ -70,7 +70,7 @@ def contact_area(self: RollPass.Roll):
 
 @ThreeRollPass.Roll.contact_area
 def contact_area3(self: RollPass.Roll):
-    return roll_contact_area(self.roll_pass, self.roll_pass.out_profile.contact_lines[1].width)
+    return roll_contact_area(self.roll_pass, self.roll_pass.out_profile.contact_lines.geoms[1].width)
 
 
 @RollPass.zouhar_contact_c2
@@ -137,7 +137,7 @@ try:
             rp: SymmetricRollPass = unit
 
             if "3fold" in rp.classifiers:
-                out_width = rp.out_profile.contact_lines[1].width
+                out_width = rp.out_profile.contact_lines.geoms[1].width
             else:
                 out_width = rp.out_profile.width
 
